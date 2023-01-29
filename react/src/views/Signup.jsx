@@ -25,6 +25,7 @@ export default function Signup() {
       .then(({data}) => {
         setUser(data.user)
         setToken(data.token);
+        console.log('done')
       })
       .catch(err => {
         const response = err.response;
