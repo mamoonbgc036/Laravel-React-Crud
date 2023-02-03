@@ -1,31 +1,15 @@
-import { Outlet, Navigate, Link } from "react-router-dom"
-import { useStateContext } from "../contexts/contextProvider.jsx"
+import { useState } from "react";
+import { Navigate, Outlet } from "react-router-dom";
 
 export default function DefaultLayout(){
-   const {user, token} = useStateContext()
-      if( !token ){
-         return <Navigate to='/login' />
-      }
-    return(
-      <div id="defaultLayout">
-      <aside>
-        <Link to="/dashboard">Dashboard</Link>
-        <Link to="/users">Users</Link>
-      </aside>
-      <div className="content">
-        <header>
-          <div>
-            Header
-          </div>
+    const [token, setToken] = useState(localStorage.getItem('ACCESS_TOKEN'))
 
-          <div>
-           User Info
-          </div>
-        </header>
-        <main>
+    if(!token){
+        return <Navigate to='/login' />
+    }
+    return(
+       <div>
           <Outlet/>
-        </main>
-      </div>
-    </div>
+       </div>
     )
 }
